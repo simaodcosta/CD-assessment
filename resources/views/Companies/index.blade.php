@@ -17,23 +17,33 @@
       <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
+          <th></th>
           <th>Name</th>
           <th>Email</th>
-          <th>Logo</th>
           <th>Phone</th>
+          <th>ID</th>
         </tr>
       </thead>
       <tbody>
         @foreach($companies as $company)
         <tr>
-          <td>{{$company['id']}}</td>
+          @if(file_exists( public_path().'/storage/images/'.$company['logo'] ))
+            <td>
+              <img src="/storage/images/{{ $company->logo }}" class="center-block" style="width:25px; height:25px; border-radius:80%;">
+            </td>
+          @else
+            <td>
+              <img src="/storage/images/avatar.png" class="center-block" style="width:25px; height:25px;border-radius:80%;">
+            </td>
+          @endif
           <td>{{$company['name']}}</td>
           <td>{{$company['email']}}</td>
-          <td>{{$company['logo']}}</td>
           <td>{{$company['phone']}}</td>
+          <td>{{$company['id']}}</td>
 
-          <td align="right"><a href="{{action('Company\CompanyController@edit', $company['id'])}}" class="btn btn-warning">Edit</a></td>
+          <td align="right">
+            <a href="{{action('Company\CompanyController@edit', $company['id'])}}" class="btn btn-warning">Edit</a>
+          </td>
           <td align="left">
             <form action="{{action('Company\CompanyController@destroy', $company['id'])}}" method="post">
               @csrf
@@ -45,5 +55,6 @@
         @endforeach
       </tbody>
     </table>
+    {!! $companies->links() !!}
   </div>
 @stop

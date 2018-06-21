@@ -17,18 +17,17 @@
       <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Company</th>
           <th>Phone</th>
           <th>Email</th>
+          <th>ID</th>
         </tr>
       </thead>
       <tbody>
         @foreach($employees as $employee)
         <tr>
-          <td>{{$employee['id']}}</td>
           <td>{{$employee['first_name']}}</td>
           <td>{{$employee['last_name']}}</td>
           @foreach($companies as $company)
@@ -38,9 +37,7 @@
           @endforeach
           <td>{{$employee['phone']}}</td>
           <td>{{$employee['email']}}</td>
-
-          
-
+          <td>{{$employee['id']}}</td>
 
           <td align="right"><a href="{{action('Employee\EmployeeController@edit', $employee['id'])}}" class="btn btn-warning">Edit</a></td>
           <td align="left">
@@ -54,5 +51,6 @@
         @endforeach
       </tbody>
     </table>
+    {!! $employees->links() !!}
   </div>
 @stop

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Company;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::paginate(10);
+
         return view('Companies.index',compact('companies'));
     }
 
@@ -41,14 +43,30 @@ class CompanyController extends Controller
     {
         // 	COMPANY | id	name	email	logo	phone
         //  EMPLOYEE | first_name	last_name	company_id	email	phone
-
+            
         $companies = new Company();
         $companies->name = $request->get('name');
         $companies->email = $request->get('email');
-        $companies->logo = $request->get('logo');
+     
+        $avatarName = "avatar.png";
+        if ($request->hasFile('select_file')) {
+            $validator = $this->validate($request, [
+                'select_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+            ]);
+            $avatarName = $companies->name.'_avatar'.time().'.'.
+                            $request->file('select_file')
+                                    ->getClientOriginalExtension();
+            $request->file('select_file')
+                    ->storeAs('/images/',$avatarName);
+        }
+
+        $companies->logo = $avatarName;
         $companies->phone = $request->get('phone');
         $companies->save();
-     
+
+        $request->session()->flash('success_edit_company','Saved succesfully!');
+        
+        //return back()->with('companies','id');
         return redirect('companies')->with('success','Company has been added');
     }
     /**
@@ -86,10 +104,26 @@ class CompanyController extends Controller
         $companies= Company::find($id);
         $companies->name = $request->get('name');
         $companies->email = $request->get('email');
-        $companies->logo = $request->get('logo');
+        
+        if ($request->hasFile('select_file')) {
+            $validator = $this->validate($request, [
+                'select_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+            ]);
+            $avatarName = $companies->name.'_avatar'.time().'.'.
+                            $request->file('select_file')
+                                    ->getClientOriginalExtension();
+            $request->file('select_file')
+                    ->storeAs('/images/',$avatarName);
+
+            $companies->logo = $avatarName;
+        }
+
         $companies->phone = $request->get('phone');
         $companies->save();
-        return redirect('companies');
+
+        $request->session()->flash('success_edit_company','Saved succesfully!');
+        
+        return back()->with('companies','id');
     }
 
     /**

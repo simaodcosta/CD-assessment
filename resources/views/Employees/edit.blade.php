@@ -3,11 +3,16 @@
 @section('title', 'Edit Employee')
 
 @section('content_header')
-  <h1>Edit Employee</h1><br/>
+  <h1>Edit Employee - {{ $employee->first_name }} {{ $employee->last_name }}</h1><br/>
 @stop
 
 @section('content')
   <div class="container">
+      @if (\Session::has('success_edit_employee'))
+        <div class="alert alert-success">
+          <p>{{ \Session::get('success_edit_employee') }}</p>
+        </div><br />
+      @endif
       <form method="post" action="{{action('Employee\EmployeeController@update', $id)}}">
         @csrf
         <input name="_method" type="hidden" value="PATCH">

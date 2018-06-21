@@ -17,7 +17,7 @@ class EmployeeController extends Controller
      */
     public function index($company_id = null)
     {
-        $employees = Employee::all();
+        $employees = Employee::paginate(10);
 
         $companies = null;
         if(!$company_id) {
@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         if(!$company_id) {
             $companies = Company::get()->all();
         }
-        return redirect('employees',['id'=>$company_id, 'companies'=>$companies])->with('success','Employee has been added');
+        return redirect('employees')->with('success','Employee has been added');
     }
     /**
      * Display the specified resource.
@@ -102,7 +102,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $company_id = null)
     {
         $employee= Employee::find($id);
         $employee->first_name = $request->get('first_name');
@@ -111,7 +111,15 @@ class EmployeeController extends Controller
         $employee->phone = $request->get('phone');
         $employee->email = $request->get('email');
         $employee->save();
-        return redirect('employees');
+
+        $companies = null;
+        if(!$company_id) {
+            $companies = Company::get()->all();
+        }
+
+        //return redirect('employees');
+        $request->session()->flash('success_edit_employee','Saved succesfully!'); 
+        return view('Employees.edit',compact('employee','id'),['id'=>$company_id, 'companies'=>$companies]);
     }
 
     /**
