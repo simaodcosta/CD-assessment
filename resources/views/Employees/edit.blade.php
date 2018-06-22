@@ -8,6 +8,16 @@
 
 @section('content')
   <div class="container">
+      @if (count($errors) > 0)
+        <div class="alert alert-danger">
+        Upload Validation Error<br><br>
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+        </div>
+      @endif
       @if (\Session::has('success_edit_employee'))
         <div class="alert alert-success">
           <p>{{ \Session::get('success_edit_employee') }}</p>
@@ -34,10 +44,10 @@
             <label for="company_id">Company:</label>
             <select name="company_id" class="form-control">
               @foreach($companies as $company)
-                @if($employee->company_id === $company->id)
-                  <option selected value="{{$company->id}}">{{$company->name}}</option>
+                @if($employee->company_id === $company->company_id)
+                  <option selected value="{{$company->company_id}}">{{$company->name}}</option>
                 @else
-                <option value="{{$company->id}}">{{$company->name}}</option>
+                <option value="{{$company->company_id}}">{{$company->name}}</option>
                 @endif
               @endforeach
             </select>

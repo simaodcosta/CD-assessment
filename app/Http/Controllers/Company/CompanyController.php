@@ -45,7 +45,13 @@ class CompanyController extends Controller
         //  EMPLOYEE | first_name	last_name	company_id	email	phone
             
         $companies = new Company();
+
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         $companies->name = $request->get('name');
+        $companies->email = $request->get('email');
         $companies->email = $request->get('email');
      
         $avatarName = "avatar.png";
@@ -57,7 +63,7 @@ class CompanyController extends Controller
                             $request->file('select_file')
                                     ->getClientOriginalExtension();
             $request->file('select_file')
-                    ->storeAs('/images/',$avatarName);
+                    ->storeAs('/images/avatar/',$avatarName);
         }
 
         $companies->logo = $avatarName;
@@ -66,7 +72,6 @@ class CompanyController extends Controller
 
         $request->session()->flash('success_edit_company','Saved succesfully!');
         
-        //return back()->with('companies','id');
         return redirect('companies')->with('success','Company has been added');
     }
     /**
@@ -102,18 +107,23 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $companies= Company::find($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         $companies->name = $request->get('name');
         $companies->email = $request->get('email');
         
         if ($request->hasFile('select_file')) {
-            $validator = $this->validate($request, [
+            $this->validate($request, [
                 'select_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
             ]);
             $avatarName = $companies->name.'_avatar'.time().'.'.
                             $request->file('select_file')
                                     ->getClientOriginalExtension();
             $request->file('select_file')
-                    ->storeAs('/images/',$avatarName);
+                    ->storeAs('/images/avatar/',$avatarName);
 
             $companies->logo = $avatarName;
         }
@@ -129,12 +139,12 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $company_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($company_id)
     {
-        $companies = Company::find($id);
+        $companies = Company::find($company_id);
         $companies->delete();
         return redirect('companies')->with('success','Company Has Been Deleted');
     }

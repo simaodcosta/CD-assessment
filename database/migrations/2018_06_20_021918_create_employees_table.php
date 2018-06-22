@@ -14,11 +14,11 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('employee_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies')->ondelete('cascade');
+            $table->foreign('company_id')->references('company_id')->on('companies')->onDelete('cascade');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
         });

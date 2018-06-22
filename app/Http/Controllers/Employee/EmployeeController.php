@@ -54,6 +54,12 @@ class EmployeeController extends Controller
         //  EMPLOYEE | first_name	last_name	company_id	email	phone
 
         $employee = new Employee();
+
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+        ]);
+        
         $employee->first_name = $request->get('first_name');
         $employee->last_name = $request->get('last_name');
         $employee->company_id = $request->get('company_id');
@@ -105,6 +111,12 @@ class EmployeeController extends Controller
     public function update(Request $request, $id, $company_id = null)
     {
         $employee= Employee::find($id);
+
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+        ]);
+
         $employee->first_name = $request->get('first_name');
         $employee->last_name = $request->get('last_name');
         $employee->company_id = $request->get('company_id');

@@ -28,10 +28,10 @@
       <input name="_method" type="hidden" value="PATCH">
       <div class="row">
         <div class="form-group col-md-4">
-          @if(file_exists( public_path().'/storage/images/'.$companies['logo'] ))
-            <img src="/storage/images/{{ $companies->logo }}" style="width:100px; height:100px; float:left; border-radius:50%; margin-right:25px;">
+          @if(file_exists( public_path().'/storage/images/avatar/'.$companies['logo'] ))
+            <img src="/storage/images/avatar/{{ $companies->logo }}" style="width:100px; height:100px; float:left; border-radius:50%; margin-right:25px;">
           @else
-            <img src="/storage/images/avatar.png" style="width:100px; height:100px; float:left; border-radius:50%; margin-right:25px;">
+            <img src="/storage/images/avatar/default.png" style="width:100px; height:100px; float:left; border-radius:50%; margin-right:25px;">
           @endif
         </div>
       </div>

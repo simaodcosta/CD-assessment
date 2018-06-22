@@ -1,62 +1,109 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Basic Mini CRM
 
-## About Laravel
+#### Table of contents
+- [Installation Instructions](#installation-instructions)
+- [Seeds](#seeds)
+    - [Seeded Roles](#seeded-roles)
+    - [Seeded Permissions](#seeded-permissions)
+    - [Seeded Users](#seeded-users)
+- [Routes](#routes)
+- [Screenshots](#screenshots)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+### Installation Instructions
+1. Run `git clone https://github.com/simaodcosta/CD-assessment.git CD-assessment`
+2. Create a MySQL database for the project
+    * ```mysql -u root -p```, if using Vagrant: ```mysql -u homestead -psecret```
+    * ```create database homestead;```
+    * ```\q```
+3. Configure your `.env` file
+4. Run `composer update` from the projects root folder
+5. From the projects root folder run `php artisan migrate`
+6. From the projects root folder run `composer dump-autoload`
+7. From the projects root folder run `php artisan db:seed`
+8. From the projects root folder run:
+    * To seed your database with users: `php artisan db:seed --class=UsersTableSeeder`
+    * To seed your database with companies examples: `php artisan db:seed --class=CompaniesTableSeeder`
+    * To seed your database with employees examples: `php artisan db:seed --class=EmployeesTableSeeder`
+    * Or, to seed with all above use: `php artisan db:seed`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Seeds
+##### Seeded Roles
+  * Administrator - Level 5
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+##### Seeded Permissions
+  * view.users
+  * create.users
+  * edit.users
+  * delete.users
 
-## Learning Laravel
+##### Seeded Users
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+|Email|Password|Access|
+|:------------|:------------|:------------|
+|admin@admin.com|password|Admin Access|
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### Routes
+```
++--------+-----------+---------------------------+-------------------+----------------------------------------------------------+--------------+
+| Domain | Method    | URI                       | Name              | Action                                                   | Middleware   |
++--------+-----------+---------------------------+-------------------+----------------------------------------------------------+--------------+
+|        | GET|HEAD  | /                         |                   | Closure                                                  | web          |
+|        | GET|HEAD  | api/user                  |                   | Closure                                                  | api,auth:api |
+|        | POST      | companies                 | companies.store   | App\Http\Controllers\Company\CompanyController@store     | web,auth     |
+|        | GET|HEAD  | companies                 | companies.index   | App\Http\Controllers\Company\CompanyController@index     | web,auth     |
+|        | GET|HEAD  | companies/create          | companies.create  | App\Http\Controllers\Company\CompanyController@create    | web,auth     |
+|        | DELETE    | companies/{company}       | companies.destroy | App\Http\Controllers\Company\CompanyController@destroy   | web,auth     |
+|        | PUT|PATCH | companies/{company}       | companies.update  | App\Http\Controllers\Company\CompanyController@update    | web,auth     |
+|        | GET|HEAD  | companies/{company}       | companies.show    | App\Http\Controllers\Company\CompanyController@show      | web,auth     |
+|        | GET|HEAD  | companies/{company}/edit  | companies.edit    | App\Http\Controllers\Company\CompanyController@edit      | web,auth     |
+|        | POST      | employees                 | employees.store   | App\Http\Controllers\Employee\EmployeeController@store   | web,auth     |
+|        | GET|HEAD  | employees                 | employees.index   | App\Http\Controllers\Employee\EmployeeController@index   | web,auth     |
+|        | GET|HEAD  | employees/create          | employees.create  | App\Http\Controllers\Employee\EmployeeController@create  | web,auth     |
+|        | GET|HEAD  | employees/{employee}      | employees.show    | App\Http\Controllers\Employee\EmployeeController@show    | web,auth     |
+|        | PUT|PATCH | employees/{employee}      | employees.update  | App\Http\Controllers\Employee\EmployeeController@update  | web,auth     |
+|        | DELETE    | employees/{employee}      | employees.destroy | App\Http\Controllers\Employee\EmployeeController@destroy | web,auth     |
+|        | GET|HEAD  | employees/{employee}/edit | employees.edit    | App\Http\Controllers\Employee\EmployeeController@edit    | web,auth     |
+|        | GET|HEAD  | home                      | home              | App\Http\Controllers\HomeController@index                | web,auth     |
+|        | POST      | login                     |                   | App\Http\Controllers\Auth\LoginController@login          | web,guest    |
+|        | GET|HEAD  | login                     | login             | App\Http\Controllers\Auth\LoginController@showLoginForm  | web,guest    |
+|        | POST      | logout                    | logout            | App\Http\Controllers\Auth\LoginController@logout         | web          |
++--------+-----------+---------------------------+-------------------+----------------------------------------------------------+--------------+
+```
 
-## Laravel Sponsors
+### Screenshots
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+Welcome
+![Welcome](https://i.imgur.com/Nj5iae9.png)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
+Dashboard
+![Dashboard](https://i.imgur.com/aqd1y6o.png)
 
-## Contributing
+Create Company
+![CreateCompany](https://i.imgur.com/mVqptNf.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+List Companies
+![ListCompanies](https://i.imgur.com/bkRLlLR.png)
 
-## Security Vulnerabilities
+Edit Company
+![EditCompany](https://i.imgur.com/XMkynvs.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Create Employee
+![CreateEmployee](https://i.imgur.com/nMhGTxW.png)
 
-## License
+List Employees
+![ListEmployees](https://i.imgur.com/uupPNUm.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# CD-test
-# CD-assessment
+Edit Employee
+![EditEmployee](https://i.imgur.com/jDOHMjB.png)
+
+Create Employee Menu when there is no companies
+![CreateEmployee_handing1](https://i.imgur.com/ryk48Vs.png)
+
+Create Employee Menu with validation error 
+![CreateEmployee_handing2](https://i.imgur.com/lPhfCXX.png)
+
+Create Company Menu with validation error 
+![CreateCompany_handing2](https://i.imgur.com/Qw830Oa.png)
+

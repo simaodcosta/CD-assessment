@@ -27,25 +27,25 @@
       <tbody>
         @foreach($companies as $company)
         <tr>
-          @if(file_exists( public_path().'/storage/images/'.$company['logo'] ))
+          @if(file_exists( public_path().'/storage/images/avatar/'.$company['logo'] ))
             <td>
-              <img src="/storage/images/{{ $company->logo }}" class="center-block" style="width:25px; height:25px; border-radius:80%;">
+              <img src="/storage/images/avatar/{{ $company->logo }}" class="center-block" style="width:25px; height:25px; border-radius:80%;">
             </td>
           @else
             <td>
-              <img src="/storage/images/avatar.png" class="center-block" style="width:25px; height:25px;border-radius:80%;">
+              <img src="/storage/images/avatar/default.png" class="center-block" style="width:25px; height:25px;border-radius:80%;">
             </td>
           @endif
           <td>{{$company['name']}}</td>
           <td>{{$company['email']}}</td>
           <td>{{$company['phone']}}</td>
-          <td>{{$company['id']}}</td>
+          <td>{{$company['company_id']}}</td>
 
           <td align="right">
-            <a href="{{action('Company\CompanyController@edit', $company['id'])}}" class="btn btn-warning">Edit</a>
+            <a href="{{action('Company\CompanyController@edit', $company['company_id'])}}" class="btn btn-warning">Edit</a>
           </td>
           <td align="left">
-            <form action="{{action('Company\CompanyController@destroy', $company['id'])}}" method="post">
+            <form action="{{action('Company\CompanyController@destroy', $company['company_id'])}}" method="post">
               @csrf
               <input name="_method" type="hidden" value="DELETE">
               <button class="btn btn-danger" type="submit">Delete</button>

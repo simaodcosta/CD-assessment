@@ -31,17 +31,17 @@
           <td>{{$employee['first_name']}}</td>
           <td>{{$employee['last_name']}}</td>
           @foreach($companies as $company)
-            @if($employee->company_id === $company->id)
+            @if($employee->company_id === $company->company_id)
               <td>{{$company['name']}}</td>
             @endif
           @endforeach
           <td>{{$employee['phone']}}</td>
           <td>{{$employee['email']}}</td>
-          <td>{{$employee['id']}}</td>
+          <td>{{$employee['company_id']}}</td>
 
-          <td align="right"><a href="{{action('Employee\EmployeeController@edit', $employee['id'])}}" class="btn btn-warning">Edit</a></td>
+          <td align="right"><a href="{{action('Employee\EmployeeController@edit', $employee['employee_id'])}}" class="btn btn-warning">Edit</a></td>
           <td align="left">
-            <form action="{{action('Employee\EmployeeController@destroy', $employee['id'])}}" method="post">
+            <form action="{{action('Employee\EmployeeController@destroy', $employee['employee_id'])}}" method="post">
               @csrf
               <input name="_method" type="hidden" value="DELETE">
               <button class="btn btn-danger" type="submit">Delete</button>
