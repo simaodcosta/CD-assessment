@@ -10,6 +10,11 @@
     - [Seeded Users](#seeded-users)
 - [Routes](#routes)
 - [Screenshots](#screenshots)
+    - [Database Structure](#database-structure)
+    - [Welcome](#welcome)
+    - [Dashboard](#dashboard)
+    - [Company Menu](#company-menu)
+    - [Employee Menu](#employee-menu)
 
 ### Installation Instructions
 1. Run `git clone https://github.com/simaodcosta/CD-assessment.git CD-assessment`
@@ -73,13 +78,16 @@
 ```
 
 ### Screenshots
+##### Database Structure
+![Database](https://i.imgur.com/w7dSgur.png)
 
-Welcome
+##### Welcome
 ![Welcome](https://i.imgur.com/Nj5iae9.png)
 
-Dashboard
+##### Dashboard
 ![Dashboard](https://i.imgur.com/aqd1y6o.png)
 
+##### Company Menu
 Create Company
 ![CreateCompany](https://i.imgur.com/mVqptNf.png)
 
@@ -89,6 +97,10 @@ List Companies
 Edit Company
 ![EditCompany](https://i.imgur.com/XMkynvs.png)
 
+Create Company Menu with validation error 
+![CreateCompany_handing2](https://i.imgur.com/Qw830Oa.png)
+
+##### Employee Menu
 Create Employee
 ![CreateEmployee](https://i.imgur.com/nMhGTxW.png)
 
@@ -103,7 +115,3 @@ Create Employee Menu when there is no companies
 
 Create Employee Menu with validation error 
 ![CreateEmployee_handing2](https://i.imgur.com/lPhfCXX.png)
-
-Create Company Menu with validation error 
-![CreateCompany_handing2](https://i.imgur.com/Qw830Oa.png)
-
