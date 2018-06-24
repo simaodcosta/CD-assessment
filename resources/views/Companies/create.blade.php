@@ -8,6 +8,7 @@
 
 @section('content')
   <div class="container">
+    {{-- Here is displayed an alert of the fields that needs to be filled. --}}
     @if (count($errors) > 0)
       <div class="alert alert-danger">
       Upload Validation Error<br><br>

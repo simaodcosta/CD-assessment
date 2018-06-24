@@ -11,6 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        // Introducing by default an admin login details
         DB::table('users')->insert([
             'name'      => 'administrator',
             'email'     => 'admin@admin.com',

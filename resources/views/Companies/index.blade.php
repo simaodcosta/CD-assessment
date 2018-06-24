@@ -9,6 +9,7 @@
 @section('content')
   <div class="container">
       <br />
+      {{-- When a company has been created, a message of sucess is here displayed with the session message. --}}
       @if (\Session::has('success'))
         <div class="alert alert-success">
           <p>{{ \Session::get('success') }}</p>
@@ -25,8 +26,10 @@
         </tr>
       </thead>
       <tbody>
+        {{-- List all companies from the Company Database --}}
         @foreach($companies as $company)
         <tr>
+          {{-- If the logo file exists, then displays it. Otherwise, a default avatar is shown. --}}
           @if(file_exists( public_path().'/storage/images/avatar/'.$company['logo'] ))
             <td>
               <img src="/storage/images/avatar/{{ $company->logo }}" class="center-block" style="width:25px; height:25px; border-radius:80%;">
@@ -55,6 +58,7 @@
         @endforeach
       </tbody>
     </table>
+    {{-- Pagination --}}
     {!! $companies->links() !!}
   </div>
 @stop

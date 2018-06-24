@@ -78,16 +78,16 @@
 ```
 
 ### Screenshots
-##### Database Structure
+#### Database Structure
 ![Database](https://i.imgur.com/w7dSgur.png)
 
-##### Welcome
+#### Welcome
 ![Welcome](https://i.imgur.com/Nj5iae9.png)
 
-##### Dashboard
+#### Dashboard
 ![Dashboard](https://i.imgur.com/aqd1y6o.png)
 
-##### Company Menu
+#### Company Menu
 Create Company
 ![CreateCompany](https://i.imgur.com/mVqptNf.png)
 
@@ -100,7 +100,7 @@ Edit Company
 Create Company Menu with validation error 
 ![CreateCompany_handing2](https://i.imgur.com/Qw830Oa.png)
 
-##### Employee Menu
+#### Employee Menu
 Create Employee
 ![CreateEmployee](https://i.imgur.com/nMhGTxW.png)
 

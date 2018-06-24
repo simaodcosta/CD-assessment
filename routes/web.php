@@ -20,6 +20,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+// Routes added to be accessed only with authenticated users
 Route::group( ['middleware' => 'auth' ], function()
 {
     Route::get('/home', 'HomeController@index')->name('home');

@@ -17,6 +17,7 @@ class EmployeeController extends Controller
      */
     public function index($company_id = null)
     {
+        // Get only 10 entries per page
         $employees = Employee::paginate(10);
 
         $companies = null;
@@ -55,6 +56,7 @@ class EmployeeController extends Controller
 
         $employee = new Employee();
 
+        // Since the first name and last name fields is required, here is made a validation to proceed the storing of this new employee
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -112,6 +114,7 @@ class EmployeeController extends Controller
     {
         $employee= Employee::find($id);
 
+        // Since the first name and last name fields is required, here is made a validation to proceed the storing of this new employee
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -129,7 +132,6 @@ class EmployeeController extends Controller
             $companies = Company::get()->all();
         }
 
-        //return redirect('employees');
         $request->session()->flash('success_edit_employee','Saved succesfully!'); 
         return view('Employees.edit',compact('employee','id'),['id'=>$company_id, 'companies'=>$companies]);
     }

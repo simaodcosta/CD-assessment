@@ -9,6 +9,7 @@
 @section('content')
   <div class="container">
       <br />
+      {{-- When a employee has been created, a message of sucess is here displayed with the session message. --}}
       @if (\Session::has('success'))
         <div class="alert alert-success">
           <p>{{ \Session::get('success') }}</p>
@@ -30,6 +31,7 @@
         <tr>
           <td>{{$employee['first_name']}}</td>
           <td>{{$employee['last_name']}}</td>
+          {{-- Gets the company's name by comparing the employee's company_id with the company_id from company's database --}}
           @foreach($companies as $company)
             @if($employee->company_id === $company->company_id)
               <td>{{$company['name']}}</td>
@@ -51,6 +53,7 @@
         @endforeach
       </tbody>
     </table>
+    {{-- Pagination --}}
     {!! $employees->links() !!}
   </div>
 @stop

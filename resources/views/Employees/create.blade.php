@@ -8,6 +8,7 @@
 
 @section('content')
   <div class="container">
+    {{-- Here is displayed an alert of the fields that needs to be filled. --}}
     @if (count($errors) > 0)
       <div class="alert alert-danger">
       Upload Validation Error<br><br>
@@ -37,6 +38,7 @@
           <div class="form-group col-md-4">
             <label for="company_id">Company:</label>
             <select name="company_id" class="form-control">
+            {{-- List all companies from the Company Database --}}
               @foreach($companies as $company)
                 <option value="{{$company->company_id}}">{{$company->name}}</option>
               @endforeach
@@ -62,6 +64,7 @@
         </div>
       </form>
     @else
+      {{-- Displays an error when the Company Database is empty. --}}
       <div class="alert alert-danger">
         <strong>Error!</strong> There are no companies!
       </div>

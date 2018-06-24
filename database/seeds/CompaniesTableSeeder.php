@@ -11,6 +11,7 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
+        // In order to test the pagination, here is made an insert of 11 companies to "companies" database.
         DB::table('companies')->insert([
             'name'      => 'Cyber Duck',
             'email'     => 'cyberduck@example.com',

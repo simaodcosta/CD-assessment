@@ -17,6 +17,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        // Get only 10 entries per page
         $companies = Company::paginate(10);
 
         return view('Companies.index',compact('companies'));
@@ -46,6 +47,7 @@ class CompanyController extends Controller
             
         $companies = new Company();
 
+        // Since the name field is required, here is made a validation to proceed the storing of this new company
         $this->validate($request, [
             'name' => 'required',
         ]);
@@ -55,13 +57,17 @@ class CompanyController extends Controller
         $companies->email = $request->get('email');
      
         $avatarName = "avatar.png";
+        // If a avatar was selected to upload, then:
         if ($request->hasFile('select_file')) {
+            // Here is specified some extentions, max file size and some minimum dimensions (width and height)
             $validator = $this->validate($request, [
-                'select_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
+                'select_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
             ]);
+            // Setting a file name to store both locally and in database
             $avatarName = $companies->name.'_avatar'.time().'.'.
                             $request->file('select_file')
                                     ->getClientOriginalExtension();
+            // Copy avatar/logo to public folder
             $request->file('select_file')
                     ->storeAs('/images/avatar/',$avatarName);
         }
@@ -108,6 +114,7 @@ class CompanyController extends Controller
     {
         $companies= Company::find($id);
 
+        // Since the name field is required, here is made a validation to proceed the storing of this new company
         $this->validate($request, [
             'name' => 'required',
         ]);
@@ -115,13 +122,17 @@ class CompanyController extends Controller
         $companies->name = $request->get('name');
         $companies->email = $request->get('email');
         
+        // If a avatar was selected to upload, then:
         if ($request->hasFile('select_file')) {
+            // Here is specified some extentions, max file size and some minimum dimensions (width and height)
             $this->validate($request, [
                 'select_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
             ]);
+            // Setting a file name to store both locally and in database
             $avatarName = $companies->name.'_avatar'.time().'.'.
                             $request->file('select_file')
                                     ->getClientOriginalExtension();
+            // Copy avatar/logo to public folder
             $request->file('select_file')
                     ->storeAs('/images/avatar/',$avatarName);
 

@@ -11,6 +11,7 @@ class EmployeesTableSeeder extends Seeder
      */
     public function run()
     {
+        // In order to test the pagination, here is made an insert of 22 employees to "employees" database.
         DB::table('employees')->insert([
             'first_name'    => 'Employee',
             'last_name'     => 'Example 1',

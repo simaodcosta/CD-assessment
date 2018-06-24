@@ -8,6 +8,7 @@
 
 @section('content')
   <div class="container">
+    {{-- Here is displayed an alert of the fields that needs to be filled. --}}
     @if (count($errors) > 0)
       <div class="alert alert-danger">
       Upload Validation Error<br><br>
@@ -28,6 +29,7 @@
       <input name="_method" type="hidden" value="PATCH">
       <div class="row">
         <div class="form-group col-md-4">
+          {{-- If the logo file exists, then displays it. Otherwise, a default avatar is shown. --}}
           @if(file_exists( public_path().'/storage/images/avatar/'.$companies['logo'] ))
             <img src="/storage/images/avatar/{{ $companies->logo }}" style="width:100px; height:100px; float:left; border-radius:50%; margin-right:25px;">
           @else
